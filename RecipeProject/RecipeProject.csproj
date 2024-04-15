@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Compile Include="Classes\Ingredient.cs" />
     <Compile Include="Classes\MeasurementUnit.cs" />
     <Compile Include="Classes\UnitHelper.cs" />
   </ItemGroup>
