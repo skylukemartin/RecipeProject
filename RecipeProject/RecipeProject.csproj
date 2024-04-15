@@ -51,6 +51,7 @@
     <Compile Include="Classes\Recipe.cs" />
     <Compile Include="Classes\MeasurementUnit.cs" />
     <Compile Include="Classes\UnitHelper.cs" />
+    <Compile Include="Classes\RecipeHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
