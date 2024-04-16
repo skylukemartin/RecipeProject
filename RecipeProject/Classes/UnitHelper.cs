@@ -15,7 +15,7 @@ namespace RecipeProject.Classes
             //          https://learn.microsoft.com/en-us/dotnet/api/system.array.findlast?view=netframework-4.8
             //          https://www.bytehide.com/blog/enum-to-array-csharp
             Units[] units = (Units[])Enum.GetValues(typeof(Units));
-            return Array.FindLast(units, unit => (int)unit < milliliters);
+            return Array.FindLast(units, unit => (int)unit <= milliliters);
         }
     }
 }

@@ -59,6 +59,7 @@ namespace RecipeProject.Classes
                 // User doesn't want to reset their recipe's ingredient scales, so quit early
                 return;
             }
+            Recipe.ResetIngredientScales();
 
             choice = prompt("Would you like to see the unscaled recipe all nice and formatted? (Y/N)");
             if (choice.Length > 0 && choice.ToUpper()[0] != 'Y')
