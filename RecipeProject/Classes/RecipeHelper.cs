@@ -82,7 +82,7 @@ namespace RecipeProject.Classes
         /// <summary>
         /// Set the current Recipe to a big predefined recipe for testing purposes.
         /// </summary>
-        public void SetDebugRecipe()
+        void SetDebugRecipe()
         {
             Recipe = new Recipe(
                 "Mac n Cheese",
