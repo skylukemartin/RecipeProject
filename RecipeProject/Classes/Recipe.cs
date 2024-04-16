@@ -22,17 +22,18 @@ namespace RecipeProject.Classes
             // My IDE yelled at me for using simple string concatenation and told me to use a string builder.
             // Source: https://learn.microsoft.com/en-us/dotnet/api/system.text.stringbuilder?view=netframework-4.8
             StringBuilder sb = new StringBuilder();
-            sb.Append($"Recipe: {Name}\n\n");
-            sb.Append($"Ingredients:\n");
+            sb.AppendLine($".. Recipe: {Name}");
+            sb.AppendLine("|");
+            sb.AppendLine("|.... Ingredients:");
             foreach (var ingredient in Ingredients)
             {
-                sb.Append($"{ingredient.ReadableAmount()} {ingredient.Name}\n");
+                sb.AppendLine($"|  |.... {ingredient.ReadableAmount()} {ingredient.Name}");
             }
-            sb.Append("\n");
-            sb.Append($"Steps:\n");
+            sb.AppendLine("|");
+            sb.AppendLine("|.... Steps:");
             for (int i = 0; i < Steps.Length; i++)
             {
-                sb.Append($"Step #{i + 1} {Steps[i]}\n");
+                sb.AppendLine($"   |.... {i + 1}. {Steps[i]}");
             }
             return sb.ToString();
         }

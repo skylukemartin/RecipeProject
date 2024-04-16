@@ -46,7 +46,7 @@ namespace RecipeProject.Classes
             {
                 unitName += "s"; // If there's more than one, add an 's' to make the unit name plural
             }
-            return $"{roundedAmount} of {unitName}";
+            return $"{roundedAmount} {unitName} of";
         }
     }
 }

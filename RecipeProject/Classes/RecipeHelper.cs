@@ -18,12 +18,17 @@ namespace RecipeProject.Classes
                 "Clear Recipe",
                 "Quit"
             };
-            string[] options = optionsNoRecipe;
 
             do
             {
+                // Update options array depending on whether or not a recipe exists
+                string[] options = Recipe != null ? optionsRecipe : optionsNoRecipe;
+
                 Console.WriteLine("Recipe Helper - Main Menu");
-                int selOption = PromptSafe.EnterOptionNum("Enter number to select option", options);
+                int selOption = PromptSafe.EnterOptionNum(
+                    "Enter number to select menu option",
+                    options
+                );
 
                 switch (options[selOption])
                 {
@@ -48,10 +53,43 @@ namespace RecipeProject.Classes
                         Console.WriteLine("Error: selected option not implemented.");
                         break;
                 }
-
-                // Update options array depending on whether or not a recipe exists
-                options = Recipe != null ? optionsRecipe : optionsNoRecipe;
             } while (PromptSafe.AskContinue());
+        }
+
+        public void SetDebugRecipe()
+        {
+            Recipe = new Recipe(
+                "Mac n Cheese",
+                new Ingredient[]
+                {
+                    new Ingredient("Butter", UnitHelper.Units.Tablespoon, 4),
+                    new Ingredient("Flour", UnitHelper.Units.Tablespoon, 4),
+                    new Ingredient("Cheese", UnitHelper.Units.Cup, 3),
+                    new Ingredient("Milk", UnitHelper.Units.Liter, 1),
+                    new Ingredient("Water", UnitHelper.Units.Liter, 1),
+                    new Ingredient("Macaroni", UnitHelper.Units.Liter, 1),
+                },
+                new string[]
+                {
+                    "Heat water in a pot for the macaroni",
+                    "Once boiling, add macaroni and stir for 11 minutes before straining",
+                    "Heat a pot for the sauce",
+                    "Add butter to sauce pot, optionally with herbs/spices of your choice",
+                    "Wait for butter to melt",
+                    "Add flour to sauce pot",
+                    "Mix flour thoroughly into butter to avoid lumps",
+                    "Slowly pour milk into sauce pot while carefully stirring",
+                    "Continuously stir sauce as it heats up",
+                    "Once warm enough, add a third of the cheese to the sauce pot",
+                    "As soon as the sauce bubbles/boils it's ready, immediately take it off the heat",
+                    "Put macaroni back into the now empty pot it was boiled in (without water this time)",
+                    "Pour all the sauce into the same pot with the macaroni and mix gently",
+                    "Once mixed, pour the saucy macaroni into a baking dish",
+                    "Put the rest of the cheese on top",
+                    "Bake in oven until cheese is golden brown or melted the way you like it",
+                    "Enjoy"
+                }
+            );
         }
 
         // First warn and confirm the user really wants to clear the recipe, then clear it if they are sure.
@@ -73,10 +111,35 @@ namespace RecipeProject.Classes
 
         void ScaleRecipe()
         {
-            // TODO: Correct this to assignment instructions, (only allowing scaling by 0.5, 2, or 3 ..)
-            float factor = PromptSafe.EnterFloat(
-                "Enter factor you would like to scale the ingredient amounts by, e.g. 2 or 0.5 etc"
+            float factor;
+            string[] scaleOptions = { "Half (0.5)", "Double (2)", "Triple (3)", "Custom" };
+            int selOpt = PromptSafe.EnterOptionNum(
+                "Enter number to select scaling factor option",
+                scaleOptions
             );
+            switch (scaleOptions[selOpt])
+            {
+                case "Half (0.5)":
+                    factor = 0.5f;
+                    break;
+                case "Double (2)":
+                    factor = 2f;
+                    break;
+                case "Triple (3)":
+                    factor = 3f;
+                    break;
+                case "Custom":
+                    factor = PromptSafe.EnterFloat(
+                        "Enter factor you would like to scale the ingredient amounts by, e.g. 2 or 0.5 etc"
+                    );
+                    break;
+                default:
+                    Console.WriteLine(
+                        "Error: something went terribly wrong. How did you get here?"
+                    );
+                    factor = 1f;
+                    break;
+            }
             Recipe.ScaleIngredients(factor);
             Console.WriteLine($"The recipe has been scaled by {factor:0.00}");
         }
