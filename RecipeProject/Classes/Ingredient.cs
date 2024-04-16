@@ -1,16 +1,18 @@
+using System;
+
 namespace RecipeProject.Classes
 {
     public class Ingredient
     {
         public string Name { get; set; } // Name of ingredient
-        public int AmountMl { get; set; } // Measured in ml
-        public MeasurementUnit Unit { get; set; } // The unit of measurement
+        public int Amount { get; set; } // Measured in ml
+        public UnitHelper.Units Unit { get; set; } // The unit of measurement
         public float ScaleFactor { get; set; } = 1; // Scale factor for scaling ingredient amount
 
-        public Ingredient(string name, MeasurementUnit unit, int unitAmount)
+        public Ingredient(string name, UnitHelper.Units unit, int unitAmount)
         {
             Name = name;
-            AmountMl = unitAmount * unit.MlPerUnit;
+            Amount = unitAmount * ((int)unit);
             Unit = unit;
         }
 
@@ -29,13 +31,13 @@ namespace RecipeProject.Classes
 
         public void UpdateUnit()
         {
-            Unit = UnitHelper.FindBestUnit(AmountMl * ScaleFactor);
+            Unit = UnitHelper.FindBestUnit(Amount * ScaleFactor);
         }
 
         public string ReadableAmount()
         {
-            float amount = AmountMl * ScaleFactor / Unit.MlPerUnit;
-            string name = Unit.Name;
+            float amount = Amount * ScaleFactor / ((int)Unit);
+            string name = Enum.GetName(typeof(UnitHelper.Units), Unit);
             if (amount > 1)
             {
                 name += "s";

@@ -32,6 +32,7 @@ namespace RecipeProject.Classes
                 // User doesn't want to see their formatted recipe, so quit early
                 return;
             }
+            Console.WriteLine(); // Print empty line for spacing
             Console.WriteLine(Recipe.FormatRecipe());
 
             choice = prompt("Would you like to scale the ingredient amounts by some factor? (Y/N)");
@@ -99,9 +100,10 @@ namespace RecipeProject.Classes
             // Source: https://learn.microsoft.com/en-us/dotnet/api/system.text.stringbuilder?view=netframework-4.8
             StringBuilder sb = new StringBuilder();
             sb.Append("Units of measurement:\n");
-            for (int i = 0; i < UnitHelper.Units.Length; i++)
+            string[] unitNames = Enum.GetNames(typeof(UnitHelper.Units));
+            for (int i = 0; i < unitNames.Length; i++)
             {
-                sb.Append($"{i + 1} - {UnitHelper.Units[i].Name}\n");
+                sb.Append($"{i + 1} - {unitNames[i]}\n");
             }
             string unitOptions = sb.ToString();
             sb.Clear();
@@ -112,11 +114,13 @@ namespace RecipeProject.Classes
                 // Get name of current ingredient
                 string name = prompt($"What is ingredient #{i + 1}'s name?");
                 // Get ingredient's unit of measurement
-                MeasurementUnit unit = UnitHelper.Units[int.Parse(prompt(
-                    $"{unitOptions}Enter number to select {name}'s unit of measurement.")) - 1];
+                // Source: https://learn.microsoft.com/en-us/dotnet/api/system.enum.parse?view=netframework-4.8
+                // Get UnitHelper.Units from user selected unit's name
+                string unitName = unitNames[int.Parse(prompt($"{unitOptions}Enter number to select {name}'s unit of measurement.")) - 1];
+                UnitHelper.Units unit = (UnitHelper.Units)Enum.Parse(typeof(UnitHelper.Units), unitName);
                 // Get amount of ingredient
                 int unitAmount = int.Parse(
-                    prompt($"How many {unit.Name}(s) of {name} is needed?"));
+                    prompt($"How many {unitName.ToLower()}(s) of {name} is needed?"));
                 // Create ingredient and save in ingredients array
                 ingredients[i] = new Ingredient(name, unit, unitAmount);
             }

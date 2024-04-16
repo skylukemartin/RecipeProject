@@ -4,29 +4,18 @@ namespace RecipeProject.Classes
 {
     public static class UnitHelper
     {
-        public static MeasurementUnit[] Units { get; } = new MeasurementUnit[]
-        {
-            new MeasurementUnit("milliliter", 1),
-            new MeasurementUnit("teaspoon", 5),
-            new MeasurementUnit("tablespoon", 15),
-            new MeasurementUnit("cup", 250),
-            new MeasurementUnit("liter", 1000)
-        };
+        public enum Units { Milliliter = 1, Teaspoon = 5, Tablespoon = 15, Cup = 250, Liter = 1000 };
 
         // Find and return the best unit for the given number of milliliters.
         // Assuming the best unit of measurement is the one with the
         // closest mlPerUnit below the given milliliters.
-        public static MeasurementUnit FindBestUnit(float milliliters)
+        public static Units FindBestUnit(float milliliters)
         {
-            int bestIndex = 0;
-            for (int i = 1; i < Units.Length; i++)
-            {
-                if (milliliters > Units[i].MlPerUnit)
-                    bestIndex = i;
-                else
-                    break;
-            }
-            return Units[bestIndex];
+            // Sources: https://learn.microsoft.com/en-us/dotnet/api/system.enum.getvalues?view=netframework-4.8
+            //          https://learn.microsoft.com/en-us/dotnet/api/system.array.findlast?view=netframework-4.8
+            //          https://www.bytehide.com/blog/enum-to-array-csharp
+            Units[] units = (Units[])Enum.GetValues(typeof(Units));
+            return Array.FindLast(units, unit => (int)unit < milliliters);
         }
     }
 }
