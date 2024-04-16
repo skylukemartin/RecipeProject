@@ -1,4 +1,7 @@
-# How to Compile and Run this Project
+# Required Link to This GitHub Repository:
+[GitHub repository link](https://github.com/skylukemartin/RecipeProject)
+
+# How to Compile and Run this Project:
 1. **Download and install Microsoft's Visual Studio with ".NET Framework 4.8 development tools" component**: 
     - [**Link to Official Installation Guide**](https://learn.microsoft.com/en-us/visualstudio/install/install-visual-studio?view=vs-2022)
     - Make sure the ".NET Framework **4.8** development tools" component is **selected** in the installer. 
