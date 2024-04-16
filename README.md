@@ -21,4 +21,48 @@
         - Navigate through the project's files in Windows Explorer to `Project Folder Name --> RecipeProject --> bin`
         - You will find folders named `Debug` and `Release` (or only one of them if you only built with one build mode). 
         - Inside either of these folders, you will find `RecipeProject.exe` (or just `RecipeProject` if show file extensions is disabled) 
-        - Double click `RecipeProject.exe` (or just `RecipeProject`) to run the program directly from Windows Explorer.
+        - Double click `RecipeProject.exe` (or just `RecipeProject`) to run the program directly from Windows Explorer.\
+
+# Sample Recipe Output:
+Once a recipe has been created, the `Display Recipe` option will display the recipe formatted like so:
+```stdout
+Recipe Helper - Main Menu
+1 - Display Recipe
+2 - Scale Recipe
+3 - Reset Recipe Scale
+4 - Clear Recipe
+5 - Quit
+
+Enter number to select menu option
+> 1
+
+
+.. Recipe: Mac n Cheese
+|
+|.... Ingredients:
+|  |.... 4 tablespoons of Butter
+|  |.... 4 tablespoons of Flour
+|  |.... 3 cups of Cheese
+|  |.... 1 liter of Milk
+|  |.... 1 liter of Water
+|  |.... 1 liter of Macaroni
+|
+|.... Steps:
+   |.... 1. Heat water in a pot for the macaroni
+   |.... 2. Once boiling, add macaroni and stir for 11 minutes before straining
+   |.... 3. Heat a pot for the sauce
+   |.... 4. Add butter to sauce pot, optionally with herbs/spices of your choice
+   |.... 5. Wait for butter to melt
+   |.... 6. Add flour to sauce pot
+   |.... 7. Mix flour thoroughly into butter to avoid lumps
+   |.... 8. Slowly pour milk into sauce pot while carefully stirring
+   |.... 9. Continuously stir sauce as it heats up
+   |.... 10. Once warm enough, add a third of the cheese to the sauce pot
+   |.... 11. As soon as the sauce bubbles/boils it's ready, immediately take it off the heat
+   |.... 12. Put macaroni back into the now empty pot it was boiled in (without water this time)
+   |.... 13. Pour all the sauce into the same pot with the macaroni and mix gently
+   |.... 14. Once mixed, pour the saucy macaroni into a baking dish
+   |.... 15. Put the rest of the cheese on top
+   |.... 16. Bake in oven until cheese is golden brown or melted the way you like it
+   |.... 17. Enjoy
+```
