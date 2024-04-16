@@ -1,15 +1,32 @@
+/// <summary>
+/// Name: Sky Martin
+/// Student: ST10286905
+/// Module: PROG6221
+/// References: https://learn.microsoft.com/en-us/dotnet/api/system.enum.parse?view=netframework-4.8
+/// </summary>
+
 using System;
 
 namespace RecipeProject.Classes
 {
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    /// <summary>
+    /// This class contains methods to help users create recipes, scale ingredients, and display formatted recipes.
+    /// </summary>
     public class RecipeHelper
     {
+        // Create a new instance of RecipeHelper
         public Recipe Recipe { get; set; }
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+        /// <summary>
+        /// Display the main menu and call relevant functions based on interactive user input.
+        /// </summary>
         public void MainMenu()
         {
-            // Define menu entries for when a recipe doesn't/does exist.
+            // Define menu entries for when a recipe doesn't exist.
             string[] optionsNoRecipe = { "Create New Recipe", "Quit" };
+            // Define menu entries for when a recipe does exist.
             string[] optionsRecipe =
             {
                 "Display Recipe",
@@ -21,15 +38,17 @@ namespace RecipeProject.Classes
 
             do
             {
-                // Update options array depending on whether or not a recipe exists
+                // Set relevant options based on whether or not a recipe exists.
                 string[] options = Recipe != null ? optionsRecipe : optionsNoRecipe;
 
+                // Display menu and let user select an option.
                 Console.WriteLine("Recipe Helper - Main Menu");
                 int selOption = PromptSafe.EnterOptionNum(
                     "Enter number to select menu option",
                     options
                 );
 
+                // Call selected menu option's respective function.
                 switch (options[selOption])
                 {
                     case "Create New Recipe":
@@ -48,14 +67,20 @@ namespace RecipeProject.Classes
                         ClearRecipe();
                         break;
                     case "Quit":
-                        return; // User wants to quit, so return to exit
+                        // User wants to quit, so return from this function and exit.
+                        return;
                     default:
+                        // This should be unreachable.
                         Console.WriteLine("Error: selected option not implemented.");
                         break;
                 }
-            } while (PromptSafe.AskContinue());
+            } while (PromptSafe.AskContinue()); // Continue or quit based on user's choice.
         }
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+        /// <summary>
+        /// Set the current Recipe to a big predefined recipe for testing purposes.
+        /// </summary>
         public void SetDebugRecipe()
         {
             Recipe = new Recipe(
@@ -92,7 +117,10 @@ namespace RecipeProject.Classes
             );
         }
 
-        // First warn and confirm the user really wants to clear the recipe, then clear it if they are sure.
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+        /// <summary>
+        /// Warn and confirm whether the user really wishes to clear the recipe, clearing it upon confirmation.
+        /// </summary>
         void ClearRecipe()
         {
             Console.WriteLine("Warning: This will completely clear the current recipe.");
@@ -102,21 +130,33 @@ namespace RecipeProject.Classes
             }
         }
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+        /// <summary>
+        /// Display the recipe in a nice format.
+        /// </summary>
         void DisplayRecipe()
         {
             Console.WriteLine(); // Print empty line for spacing
-            Console.WriteLine(Recipe.FormatRecipe());
+            Console.WriteLine(Recipe.FormatRecipe()); // Print the freshly formatted recipe.
             Console.WriteLine(); // Print another empty line for spacing
         }
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+        /// <summary>
+        /// Scale the recipe based on user selected scaling factor.
+        /// </summary>
         void ScaleRecipe()
         {
+            // Initialize factor variable.
             float factor;
+            // Define scaling option names.
             string[] scaleOptions = { "Half (0.5)", "Double (2)", "Triple (3)", "Custom" };
+            // Get user's option selection.
             int selOpt = PromptSafe.EnterOptionNum(
                 "Enter number to select scaling factor option",
                 scaleOptions
             );
+            // Set scaling factor variable based on selected option.
             switch (scaleOptions[selOpt])
             {
                 case "Half (0.5)":
@@ -140,19 +180,29 @@ namespace RecipeProject.Classes
                     factor = 1f;
                     break;
             }
+            // Apply the user selected scaling factor to the ingredients.
             Recipe.ScaleIngredients(factor);
+            // Let the user know that the recipe has been scaled.
             Console.WriteLine($"The recipe has been scaled by {factor:0.00}");
         }
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+        /// <summary>
+        /// Reset recipe's scale factor back to original scale.
+        /// </summary>
         void ResetRecipeScale()
         {
             Recipe.ResetIngredientScales();
+            // Let the user know that the recipe's scale has been reset.
             Console.WriteLine(
                 $"The recipe's ingredients have been set back to their original scale."
             );
         }
 
-        // Method which creates and returns recipe based on user input
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+        /// <summary>
+        /// Method which creates recipe based on user input.
+        /// </summary>
         void CreateRecipe()
         {
             // Prompt user to enter the recipe name
@@ -168,6 +218,10 @@ namespace RecipeProject.Classes
             this.Recipe = new Recipe(recipeName, ingredients, steps);
         }
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+        /// <summary>
+        /// Method which creates, populates, and returns an array of recipe ingredients based on user input.
+        /// </summary>
         Ingredient[] InputIngredients()
         {
             // Prompt user for number of ingredients
@@ -190,12 +244,11 @@ namespace RecipeProject.Classes
                 string unitName = unitNames[
                     PromptSafe.EnterOptionNum("Select unit of measurement:", unitNames)
                 ];
-                // Get UnitHelper.Units from unit's name by first parsing .. then casting...
-                // Source: https://learn.microsoft.com/en-us/dotnet/api/system.enum.parse?view=netframework-4.8
+                // Get UnitHelper.Units with unit's name, by casting the parsed enum object to its correct type.
                 UnitHelper.Units unit = (UnitHelper.Units)
                     Enum.Parse(typeof(UnitHelper.Units), unitName);
 
-                // Get amount of ingredient
+                // Get unit amount of ingredient
                 int unitAmount = PromptSafe.EnterInt(
                     $"How many {unitName.ToLower()}(s) of {name} is needed?"
                 );
@@ -204,10 +257,14 @@ namespace RecipeProject.Classes
                 ingredients[i] = new Ingredient(name, unit, unitAmount);
             }
 
-            // return the populated ingredients array
+            // return the now populated ingredients array
             return ingredients;
         }
 
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+        /// <summary>
+        /// Method which creates, populates, and returns an array of recipe steps based on user input.
+        /// </summary>
         string[] InputSteps()
         {
             // Find out how many steps the recipe has
