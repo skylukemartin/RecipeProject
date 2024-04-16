@@ -1,10 +1,25 @@
+/// <summary>
+/// Name: Sky Martin
+/// Student: ST10286905
+/// Module: PROG6221
+/// References: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/static
+/// </summary>
+
 using System;
 
 namespace RecipeProject.Classes
 {
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    /// <summary>
+    /// Static class providing methods for prompting and validating user input.
+    /// Handles different data types and provides user relevant feedback if their input is invalid.
+    /// </summary>
     public static class PromptSafe
     {
-        // Display formatted message, then get and return user input as string
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+        /// <summary>
+        /// Prompts user with provided message, returns their response as string.
+        /// </summary>
         public static string EnterString(string msg)
         {
             // Skip a line, print the message, then add a '>' to the next line and get user input
@@ -14,7 +29,11 @@ namespace RecipeProject.Classes
             return response;
         }
 
-        // Display formatted message, then get, validate, and return user input as int
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+        /// <summary>
+        /// Prompts user with provided message, returns their response as an integer.
+        /// Validates the input to ensure it is a whole number.
+        /// </summary>
         public static int EnterInt(string msg)
         {
             do
@@ -30,7 +49,11 @@ namespace RecipeProject.Classes
             } while (true); // Loop until valid input
         }
 
-        // Display formatted message, then get, validate, and return user input as float
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+        /// <summary>
+        /// Prompts user with provided message, returns their response as a float.
+        /// Validates the input to ensure it is a numeric value.
+        /// </summary>
         public static float EnterFloat(string msg)
         {
             do
@@ -46,8 +69,12 @@ namespace RecipeProject.Classes
             } while (true); // Loop until valid input
         }
 
-        // Display numbered option names, display formatted message,
-        // get and validate user input number, returns when valid, keeps asking until valid.
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+        /// <summary>
+        /// Prompts user to select an option, displaying elements of provided options array as numbered options
+        /// with provided message, returns the index of the selected array option/element.
+        /// Validates the selection to ensure it is within the range of provided options.
+        /// </summary>
         public static int EnterOptionNum(string msg, string[] options)
         {
             do
@@ -75,7 +102,11 @@ namespace RecipeProject.Classes
             } while (true); // We must return something, so continue prompting until a valid option is selected.
         }
 
-        // Prompt the user if they would like to continue or quit, returns true if they wish to continue.
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+        /// <summary>
+        /// Prompts the user to continue or quit the application.
+        /// Returns true if the user's response begins with anything besides 'Q'.
+        /// </summary>
         public static bool AskContinue()
         {
             const string msg = "Press enter to continue, or Q followed by enter to quit";
@@ -83,7 +114,11 @@ namespace RecipeProject.Classes
             return shouldContinue;
         }
 
-        // Prompt the user for confirmation, returning false if that doesn't begin with "Y" is given.
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+        /// <summary>
+        /// Prompts the user for confirmation with provided message.
+        /// Returns true if the user's response begins with 'Y'.
+        /// </summary>
         public static bool AskConfirm(string msg)
         {
             return EnterString($"{msg} (Y/N)").ToUpper().StartsWith("Y");

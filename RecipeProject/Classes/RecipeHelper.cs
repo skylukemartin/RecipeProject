@@ -3,6 +3,7 @@
 /// Student: ST10286905
 /// Module: PROG6221
 /// References: https://learn.microsoft.com/en-us/dotnet/api/system.enum.parse?view=netframework-4.8
+///             https://www.bytehide.com/blog/enum-to-array-csharp
 /// </summary>
 
 using System;
@@ -24,9 +25,9 @@ namespace RecipeProject.Classes
         /// </summary>
         public void MainMenu()
         {
-            // Define menu entries for when a recipe doesn't exist.
+            // Declare and define menu entries for when a recipe doesn't exist.
             string[] optionsNoRecipe = { "Create New Recipe", "Quit" };
-            // Define menu entries for when a recipe does exist.
+            // Declare and define menu entries for when a recipe does exist.
             string[] optionsRecipe =
             {
                 "Display Recipe",
@@ -38,7 +39,7 @@ namespace RecipeProject.Classes
 
             do
             {
-                // Set relevant options based on whether or not a recipe exists.
+                // Specify relevant options based on whether or not a recipe exists.
                 string[] options = Recipe != null ? optionsRecipe : optionsNoRecipe;
 
                 // Display menu and let user select an option.

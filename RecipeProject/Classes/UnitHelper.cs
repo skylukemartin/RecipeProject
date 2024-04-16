@@ -19,7 +19,7 @@ namespace RecipeProject.Classes
     /// </summary>
     public static class UnitHelper
     {
-        // Declare and define units of measurement enum.
+        // Declare and define units of measurement enum in terms of the number of milliliters per unit.
         public enum Units
         {
             Milliliter = 1,
