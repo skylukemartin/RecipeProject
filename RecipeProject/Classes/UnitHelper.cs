@@ -21,6 +21,7 @@ namespace RecipeProject.Classes
     public static class UnitHelper
     {
         // Declare and define units of measurement enum in terms of the number of milliliters per unit.
+        // Note: According to my source, "8 tablespoons multiplied by 2" does not "become 1 cup".
         public enum Units
         {
             Milliliter = 1,
