@@ -7,7 +7,7 @@
         static void Main(string[] args)
         {
             RecipeHelper recipeHelper = new RecipeHelper();
-            recipeHelper.Run();
+            recipeHelper.MainMenu();
         }
     }
 }
