@@ -19,21 +19,21 @@ namespace RecipeProject.Classes
 
         public string FormatRecipe()
         {
+            // My IDE yelled at me for using simple string concatenation and told me to use a string builder.
             // Source: https://learn.microsoft.com/en-us/dotnet/api/system.text.stringbuilder?view=netframework-4.8
             StringBuilder sb = new StringBuilder();
             sb.Append($"Recipe: {Name}\n\n");
-            sb.Append($"All {Ingredients.Length} of the recipe's ingredients:\n");
+            sb.Append($"Ingredients:\n");
             foreach (var ingredient in Ingredients)
             {
                 sb.Append($"{ingredient.ReadableAmount()} {ingredient.Name}\n");
             }
             sb.Append("\n");
-            sb.Append($"All {Steps.Length}  of the recipe's steps:\n");
+            sb.Append($"Steps:\n");
             for (int i = 0; i < Steps.Length; i++)
             {
                 sb.Append($"Step #{i + 1} {Steps[i]}\n");
             }
-            sb.Append("\n");
             return sb.ToString();
         }
 

@@ -36,14 +36,17 @@ namespace RecipeProject.Classes
 
         public string ReadableAmount()
         {
+            // If amount is a whole number, don't use decimal places.
+            // Source for rounded float format: https://stackoverflow.com/a/58733847
             float amount = Amount * ScaleFactor / ((int)Unit);
-            string name = Enum.GetName(typeof(UnitHelper.Units), Unit);
+            string roundedAmount = amount % 1 == 0 ? $"{amount:0}" : $"{amount:0.00}";
+
+            string unitName = Enum.GetName(typeof(UnitHelper.Units), Unit).ToLower();
             if (amount > 1)
             {
-                name += "s";
+                unitName += "s"; // If there's more than one, add an 's' to make the unit name plural
             }
-            // Source for rounded float format: https://stackoverflow.com/a/58733847
-            return $"{amount:0.00} {name}";
+            return $"{roundedAmount} of {unitName}";
         }
     }
 }

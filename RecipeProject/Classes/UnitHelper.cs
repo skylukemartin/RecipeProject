@@ -4,7 +4,14 @@ namespace RecipeProject.Classes
 {
     public static class UnitHelper
     {
-        public enum Units { Milliliter = 1, Teaspoon = 5, Tablespoon = 15, Cup = 250, Liter = 1000 };
+        public enum Units
+        {
+            Milliliter = 1,
+            Teaspoon = 5,
+            Tablespoon = 15,
+            Cup = 250,
+            Liter = 1000
+        };
 
         // Find and return the best unit for the given number of milliliters.
         // Assuming the best unit of measurement is the one with the
