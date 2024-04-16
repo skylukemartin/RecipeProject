@@ -5,6 +5,7 @@
 /// References: https://learn.microsoft.com/en-us/dotnet/api/system.enum.getvalues?view=netframework-4.8
 ///             https://learn.microsoft.com/en-us/dotnet/api/system.array.findlast?view=netframework-4.8
 ///             https://www.bytehide.com/blog/enum-to-array-csharp
+///             https://www.thespruceeats.com/volume-conversions-chart-1328757
 /// </summary>
 
 using System;
