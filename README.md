@@ -45,7 +45,7 @@ Once you have created a recipe, the main menu will show and let you select the f
 * **4. Select Recipe**: Select a recipe to perform actions on it.
 * **5. Quit**: Exit the app.
 
-​￼**Creating a Recipe**
+​**Creating a Recipe**
 -------------------
 
 To create a recipe, select option 1 from the main menu. You will be prompted to:
@@ -54,22 +54,22 @@ To create a recipe, select option 1 from the main menu. You will be prompted to:
 * Add ingredients one by one, specifying the name, unit of measurement, quantity, and food group for each.
 * Add steps to the recipe, specifying the instructions for each step.
 
-​￼**Listing Recipes**
+​**Listing Recipes**
 -----------------
 
 To list all created recipes, select option 2 from the main menu. This will display a list of all recipes.
 
-​￼**Displaying a Recipe**
+​**Displaying a Recipe**
 ---------------------
 
 To display a specific recipe, select option 3 from the main menu and then select the recipe from the list.
 
-​￼**Selecting a Recipe**
+​**Selecting a Recipe**
 ---------------------
 
 To select a recipe to perform actions on it, select option 4 from the main menu and then select the recipe from the list. This will take you to the Recipe Menu.
 
-​￼**Recipe Menu**
+​**Recipe Menu**
 -------------
 
 The Recipe Menu allows you to perform actions on a selected recipe. You can:
@@ -80,7 +80,7 @@ The Recipe Menu allows you to perform actions on a selected recipe. You can:
 * **4. Remove Recipe**: Delete the recipe.
 * **5. Back**: Return to the Main Menu.
 
-​￼**Scaling a Recipe**
+​**Scaling a Recipe**
 ------------------
 
 To scale a recipe, select option 2 from the Recipe Menu. You can choose from the following scaling factors:
@@ -90,17 +90,17 @@ To scale a recipe, select option 2 from the Recipe Menu. You can choose from the
 * **3. Triple (3)**
 * **4. Custom**: Enter a custom scaling factor.
 
-​￼**Troubleshooting**
+**Troubleshooting**
 ---------------
 
 If you encounter any issues or invalid inputs, the app will prompt you to try again.
 
-​￼**Exiting the App**
+**Exiting the App**
 ---------------------
 
 To exit the app, select option 5 from the Main Menu.
 
-​￼**App Usage Examples**
+**App Usage Examples**
 ---------------------
 
 ### Creating A Recipe
