@@ -5,8 +5,6 @@
 /// References: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/static
 /// </summary>
 
-using System;
-
 namespace RecipeProject.Classes
 {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
@@ -23,9 +21,9 @@ namespace RecipeProject.Classes
         public static string EnterString(string msg)
         {
             // Skip a line, print the message, then add a '>' to the next line and get user input
-            Console.Write($"\n{msg}\n> ");
+            ColorConsole.Write($"\n{msg}\n" + "{green:>} ");
             string response = Console.ReadLine() ?? "";
-            Console.WriteLine(); // Add yet another empty line for spacing.
+            ColorConsole.WriteLine(); // Add yet another empty line for spacing.
             return response;
         }
 
@@ -44,9 +42,27 @@ namespace RecipeProject.Classes
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("Invalid input. Please enter a whole number.");
+                    ColorConsole.WriteLine("Invalid input. Please enter a whole number.", "red");
                 }
             } while (true); // Loop until valid input
+        }
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+        /// <summary>
+        /// Prompts user with provided message, returns their response as an integer.
+        /// Validates the input to ensure it is a whole number, and at least above min (or min if inclusiveMin=true).
+        /// </summary>
+        public static int EnterInt(string msg, float min, bool inclusiveMin = false)
+        {
+            int input = -1;
+            do
+            {
+                input = EnterInt(msg);
+                if (inclusiveMin ? input >= min : input > min)
+                    break;
+                ColorConsole.WriteLine($"Please enter a number greater than {min}", "red");
+            } while (input < min);
+            return input;
         }
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
@@ -64,9 +80,28 @@ namespace RecipeProject.Classes
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("Invalid input. Please enter a number.");
+                    ColorConsole.WriteLine("Invalid input. Please enter a number.", "red");
                 }
             } while (true); // Loop until valid input
+        }
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+        /// <summary>
+        /// Prompts user with provided message, returns their response as a float.
+        /// Validates the input to ensure it is a numeric value,
+        /// and at least above min (or min if inclusiveMin=true).
+        /// </summary>
+        public static float EnterFloat(string msg, float min, bool inclusiveMin = false)
+        {
+            float input = -1;
+            do
+            {
+                input = EnterFloat(msg);
+                if (inclusiveMin ? input >= min : input > min)
+                    break;
+                ColorConsole.WriteLine($"Please enter a number greater than {min}", "red");
+            } while (true);
+            return input;
         }
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
@@ -76,30 +111,24 @@ namespace RecipeProject.Classes
         /// Validates the selection to ensure it is within the range of provided options.
         /// </summary>
         public static int EnterOptionNum(string msg, string[] options)
-        {
+        { // Declare and define an integer to store the index of the option selected by user.
+            int selIndex = -1;
             do
             {
                 // Output options for selection
                 for (int i = 0; i < options.Length; i++)
-                {
-                    Console.WriteLine($"{i + 1} - {options[i]}");
-                }
+                    ColorConsole.WriteLine($$"""{yellow:{{i + 1}}} - {{options[i]}}""");
 
-                // Prompt user to enter option, then minus 1 because options are part of 0-indexed array
-                int selOption = EnterInt(msg) - 1;
+                // Prompt user to enter option
+                selIndex = EnterInt(msg) - 1; // minus 1 because options are part of 0-indexed array.
 
                 // Check if option is within valid range
-                if (selOption >= 0 && selOption < options.Length)
-                {
-                    // Option is within valid range, so return it
-                    return selOption;
-                }
+                if (selIndex >= 0 && selIndex < options.Length)
+                    break; // Option is within valid range, so return it
 
-                // Explain what went wrong
-                Console.WriteLine(
-                    "Invalid option selected. Please select option number within valid range."
-                );
-            } while (true); // We must return something, so continue prompting until a valid option is selected.
+                ColorConsole.WriteLine("Invalid option selected.", "red"); // Explain what went wrong
+            } while (true);
+            return selIndex;
         }
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
@@ -107,11 +136,22 @@ namespace RecipeProject.Classes
         /// Prompts the user to continue or quit the application.
         /// Returns true if the user's response begins with anything besides 'Q'.
         /// </summary>
-        public static bool AskContinue()
+        public static bool AskQuitOrContinue()
         {
-            const string msg = "Press enter to continue, or Q followed by enter to quit";
+            const string msg =
+                "Press {green:enter} to {green:continue}, or {red:Q} followed by {red:enter} to {red:quit} this menu";
             bool shouldContinue = !EnterString(msg).ToUpper().StartsWith("Q");
             return shouldContinue;
+        }
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+        /// <summary>
+        /// Prompts the user to continue, giving them a chance to read output.
+        /// </summary>
+        public static void WaitReady()
+        {
+            const string msg = "Press {green:enter} when ready to {green:continue}";
+            EnterString(msg);
         }
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
