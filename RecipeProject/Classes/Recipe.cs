@@ -81,7 +81,26 @@ namespace RecipeProject.Classes
         public void NotifyCaloriesSurpass300(float newCals, float prevCals)
         {
             if (JustSurpassedMin(newCals, prevCals, 300))
+            {
                 ColorConsole.WriteLine("{yellow:Note}: total {yellow:calories} exceed {red:300}!");
+                // "Information relevant to the number of calories is displayed to the user as part of the alert."
+                ColorConsole.WriteLine(
+                    $"The current total exceeds 300 by a whopping {newCals - 300}" + "{red:!}"
+                );
+                // "Information relevant to the number of calories is displayed to the user as part of the alert."
+                ColorConsole.WriteLine(
+                    $"That's {newCals - prevCals} more than the previous total" + "{red:!}"
+                );
+                // "Information relevant to the number of calories is displayed to the user as part of the alert."
+                ColorConsole.WriteLine(
+                    $"There literally {newCals} calories in this recipe now right now" + "{red:!}"
+                );
+                const int appleCal = 52;
+                // "Information relevant to the number of calories is displayed to the user as part of the alert."
+                ColorConsole.WriteLine(
+                    $"That is equivalent to {(newCals / appleCal):0.00}" + " {red:apples!!1!}"
+                );
+            }
         }
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
