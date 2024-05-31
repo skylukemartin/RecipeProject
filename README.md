@@ -407,3 +407,8 @@ Recipe Helper - Main Menu
 Enter number to select menu option
 > 5
 ```
+
+#### Brief description of what I changed based on lecturer's feedback
+
+I have added app usage instructions and examples, so now it is more than just the compilation/running instructions.
+I have added input validation to ensure entering negative values for quantities is no longer permitted.
