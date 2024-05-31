@@ -130,7 +130,7 @@ namespace RecipeProject.Classes
 
             // Prompt user to select menu action, saving its index
             var selIndex = PromptSafe.EnterOptionNum(
-                $"Enter number to select action for the ${recipe.Name} recipe.",
+                $"Enter number to select action for the {recipe.Name} recipe.",
                 menuActions.Select(a => a.Name).ToArray()
             );
 
@@ -317,7 +317,7 @@ namespace RecipeProject.Classes
             do
             {
                 recipe.AddStep(PromptSafe.EnterString($"What is step #{++count}"));
-            } while (PromptSafe.AskConfirm("Would you like to add another ingredient?"));
+            } while (PromptSafe.AskConfirm("Would you like to add another step?"));
         }
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
