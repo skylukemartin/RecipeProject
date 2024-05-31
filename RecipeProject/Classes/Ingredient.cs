@@ -6,6 +6,7 @@
 ///             https://sweetlife.org.za/what-are-the-different-food-groups-a-simple-explanation/
 /// </summary>
 
+using System;
 
 namespace RecipeProject.Classes
 {
@@ -114,8 +115,8 @@ namespace RecipeProject.Classes
         /// <summary>
         /// This static readonly string array contains food groups that an ingredient could belong to.
         /// </summary>
-        public static readonly string[] FoodGroups =
-        [
+        public static readonly string[] FoodGroups = new string[]
+        {
             "Starchy foods",
             "Vegetables and fruits",
             "Dry beans, peas, lentils and soya",
@@ -123,6 +124,6 @@ namespace RecipeProject.Classes
             "Milk and dairy products",
             "Fats and oil",
             "Water"
-        ];
+        };
     }
 }

@@ -6,6 +6,10 @@
 ///             https://www.bytehide.com/blog/enum-to-array-csharp
 /// </summary>
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace RecipeProject.Classes
 {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
@@ -15,7 +19,7 @@ namespace RecipeProject.Classes
     public class RecipeHelper
     {
         // Create an empty List<Recipe> instance for the recipes.
-        public List<Recipe> Recipes { get; set; } = [];
+        public List<Recipe> Recipes { get; set; } = new List<Recipe>();
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
         /// <summary>
@@ -236,7 +240,7 @@ namespace RecipeProject.Classes
             string recipeName = PromptSafe.EnterString("What would you like to name the recipe?");
 
             // Create recipe instance
-            Recipe recipe = new(recipeName);
+            Recipe recipe = new Recipe(recipeName);
 
             // Prompt and save user input to new recipe
             InputIngredients(recipe);
@@ -321,18 +325,21 @@ namespace RecipeProject.Classes
         /// Return a list
         /// </summary>
         static List<Recipe> SampleDebugRecipes() =>
-            [
+            new List<Recipe>
+            {
                 new Recipe(
                     "Mac n Cheese",
-                    [
+                    new List<Ingredient>
+                    {
                         new Ingredient("Butter", UnitHelper.Units.Tablespoon, 4, 123, ""),
                         new Ingredient("Flour", UnitHelper.Units.Tablespoon, 4, 123, ""),
                         new Ingredient("Cheese", UnitHelper.Units.Cup, 3, 123, ""),
                         new Ingredient("Milk", UnitHelper.Units.Liter, 1, 123, ""),
                         new Ingredient("Water", UnitHelper.Units.Liter, 1, 123, ""),
                         new Ingredient("Macaroni", UnitHelper.Units.Liter, 1, 123, "")
-                    ],
-                    [
+                    },
+                    new List<string>
+                    {
                         "Heat water in a pot for the macaroni",
                         "Once boiling, add macaroni and stir for 11 minutes before straining",
                         "Heat a pot for the sauce",
@@ -350,11 +357,12 @@ namespace RecipeProject.Classes
                         "Put the rest of the cheese on top",
                         "Bake in oven until cheese is golden brown or melted the way you like it",
                         "Enjoy"
-                    ]
+                    }
                 ),
                 new Recipe(
                     "Chocolate Chip Cookies",
-                    [
+                    new List<Ingredient>
+                    {
                         new Ingredient("Butter", UnitHelper.Units.Cup, 1, 123, ""),
                         new Ingredient("White Sugar", UnitHelper.Units.Cup, 1, 123, ""),
                         new Ingredient("Brown Sugar", UnitHelper.Units.Cup, 1, 123, ""),
@@ -366,8 +374,9 @@ namespace RecipeProject.Classes
                         new Ingredient("Flour", UnitHelper.Units.Cup, 3, 123, ""),
                         new Ingredient("Chocolate Chips", UnitHelper.Units.Cup, 2, 123, ""),
                         new Ingredient("Chopped Walnuts", UnitHelper.Units.Cup, 1, 123, "")
-                    ],
-                    [
+                    },
+                    new List<string>
+                    {
                         "Preheat oven to 175 degrees C.",
                         "Cream together the butter, white sugar, and brown sugar until smooth.",
                         "Beat in the eggs one at a time, then stir in the vanilla.",
@@ -375,8 +384,8 @@ namespace RecipeProject.Classes
                         "Stir in flour, chocolate chips, and nuts.",
                         "Drop by large spoonfuls onto ungreased pans.",
                         "Bake for about 10 minutes in the preheated oven, or until edges are nicely browned."
-                    ]
+                    }
                 )
-            ];
+            };
     }
 }

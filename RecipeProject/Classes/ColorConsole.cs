@@ -6,6 +6,8 @@
 ///             https://stackoverflow.com/questions/2743260/is-it-possible-to-write-to-the-console-in-colour-in-net
 /// </summary>
 
+using System;
+
 namespace RecipeProject.Classes
 {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
@@ -51,7 +53,7 @@ namespace RecipeProject.Classes
         {
             static int printEscapeColor(string msg, int start)
             { // escape and print colored text,
-                int lenny = msg.IndexOf('}', start) - start;
+                int lenny = msg.IndexOf('}', 1 + start) - start;
                 if (lenny < 0)
                     return -1;
                 var splitty = msg.Substring(++start, lenny - 1).Split(':');
@@ -115,36 +117,38 @@ namespace RecipeProject.Classes
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
         /// <summary>
+        /// Commented out because unsupported in this version of the language.
         /// This method is for demonstration purposes, showing usage and valid string formatting.
         /// </summary>
-        public static void Demo() => WriteLine(exampleMoustacheFormat);
+        //public static void Demo() => WriteLine(exampleMoustacheFormat);
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
         /// <summary>
+        /// Commented out because unsupported in this version of the language.
         /// This is an example of valid color formatted string.
         /// Printing this with the above Write(string message) methods will print the string with color.
         /// </summary>
-        static readonly string exampleMoustacheFormat = """
-            ConsoleColor[] colors =
-            [
-                {black:ConsoleColor.Black},
-                {darkblue:ConsoleColor.DarkBlue},
-                {dArKgReEn:ConsoleColor.DarkGreen},
-                {darkcyaN:ConsoleColor.DarkCyan},
-                {darkred:ConsoleColor.DarkRed},
-                {darkmagenta:ConsoleColor.DarkMagenta},
-                {DarkYellow:ConsoleColor.DarkYellow},
-                {Gray:ConsoleColor.Gray},
-                {DarkGray:ConsoleColor.DarkGray},
-                {Blue:ConsoleColor.Blue},
-                {Green:ConsoleColor.Green},
-                {Cyan:ConsoleColor.Cyan},
-                {Red:ConsoleColor.Red},
-                {Magenta:ConsoleColor.Magenta},
-                {Yellow:ConsoleColor.Yellow},
-                {White:ConsoleColor.White}
-            ];
+        //static const string exampleMoustacheFormat = """
+        //    ConsoleColor[] colors =
+        //    [
+        //        {black:ConsoleColor.Black},
+        //        {darkblue:ConsoleColor.DarkBlue},
+        //        {dArKgReEn:ConsoleColor.DarkGreen},
+        //        {darkcyaN:ConsoleColor.DarkCyan},
+        //        {darkred:ConsoleColor.DarkRed},
+        //        {darkmagenta:ConsoleColor.DarkMagenta},
+        //        {DarkYellow:ConsoleColor.DarkYellow},
+        //        {Gray:ConsoleColor.Gray},
+        //        {DarkGray:ConsoleColor.DarkGray},
+        //        {Blue:ConsoleColor.Blue},
+        //        {Green:ConsoleColor.Green},
+        //        {Cyan:ConsoleColor.Cyan},
+        //        {Red:ConsoleColor.Red},
+        //        {Magenta:ConsoleColor.Magenta},
+        //        {Yellow:ConsoleColor.Yellow},
+        //        {White:ConsoleColor.White}
+        //    ];
 
-            """;
+        //    """;
     }
 }

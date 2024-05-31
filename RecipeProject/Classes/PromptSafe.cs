@@ -5,6 +5,8 @@
 /// References: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/static
 /// </summary>
 
+using System;
+
 namespace RecipeProject.Classes
 {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
@@ -60,7 +62,10 @@ namespace RecipeProject.Classes
                 input = EnterInt(msg);
                 if (inclusiveMin ? input >= min : input > min)
                     break;
-                ColorConsole.WriteLine($"Please enter a number greater than {min}", "red");
+                ColorConsole.WriteLine(
+                    $"Please enter a number greater than {(inclusiveMin ? "or equal to " : "")}{min}",
+                    "red"
+                );
             } while (input < min);
             return input;
         }
@@ -99,7 +104,10 @@ namespace RecipeProject.Classes
                 input = EnterFloat(msg);
                 if (inclusiveMin ? input >= min : input > min)
                     break;
-                ColorConsole.WriteLine($"Please enter a number greater than {min}", "red");
+                ColorConsole.WriteLine(
+                    $"Please enter a number greater than {(inclusiveMin ? "or equal to " : "")}{min}",
+                    "red"
+                );
             } while (true);
             return input;
         }
@@ -117,7 +125,7 @@ namespace RecipeProject.Classes
             {
                 // Output options for selection
                 for (int i = 0; i < options.Length; i++)
-                    ColorConsole.WriteLine($$"""{yellow:{{i + 1}}} - {{options[i]}}""");
+                    ColorConsole.WriteLine("{yellow:" + (i + 1) + "} - " + options[i]);
 
                 // Prompt user to enter option
                 selIndex = EnterInt(msg) - 1; // minus 1 because options are part of 0-indexed array.

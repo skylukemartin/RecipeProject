@@ -5,6 +5,7 @@
 /// References: https://learn.microsoft.com/en-us/dotnet/api/system.text.stringbuilder?view=netframework-4.8
 /// </summary>
 
+using System.Collections.Generic;
 using System.Text;
 
 namespace RecipeProject.Classes
@@ -21,7 +22,7 @@ namespace RecipeProject.Classes
         public string Name { get; set; }
 
         public delegate void CalorieUpdate(float newCals, float prevCals);
-        public CalorieUpdate? OnCalorieUpdate { get; set; }
+        public CalorieUpdate OnCalorieUpdate { get; set; }
         float _calories = 0;
         public float Calories
         {
@@ -39,9 +40,9 @@ namespace RecipeProject.Classes
 
         void SubCalories(Ingredient ing) => Calories -= (ing.Calories * ing.ScaleFactor);
 
-        List<Ingredient> ingredients = [];
+        List<Ingredient> ingredients = new List<Ingredient>();
 
-        List<string> steps { get; set; } = [];
+        List<string> steps { get; set; } = new List<string>();
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
         /// <summary>
@@ -140,7 +141,7 @@ namespace RecipeProject.Classes
                     .Replace("|", "{blue:|}")
                     .Replace(".. Recipe", "{darkcyan:.. Recipe}")
                     .Replace("....", "{darkcyan:....}")
-                    .Replace(Name, $$"""{yellow:{{Name}}}""")
+                    .Replace(Name, "{yellow:" + Name + "}")
                     .Replace("Total Calories", "{red:Total Calories}")
                     .Replace("Ingredients", "{green:Ingredients}")
                     .Replace("Steps", "{magenta:Steps}")
