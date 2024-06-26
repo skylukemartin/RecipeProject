@@ -10,7 +10,7 @@
 
 using System;
 
-namespace RecipeProject.Classes
+namespace RecipeProject.Models
 {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     /// <summary>
@@ -18,11 +18,11 @@ namespace RecipeProject.Classes
     /// as well as a method for finding the most appropriate unit of measurement
     /// for a given number of milliliters.
     /// </summary>
-    public static class UnitHelper
+    public static class Volume
     {
         // Declare and define units of measurement enum in terms of the number of milliliters per unit.
         // Note: According to my source, "8 tablespoons multiplied by 2" does not "become 1 cup".
-        public enum Units
+        public enum Unit
         {
             Milliliter = 1,
             Teaspoon = 5,
@@ -36,10 +36,10 @@ namespace RecipeProject.Classes
         /// Find and return the most appropriate unit of measurement for the given number of milliliters.
         /// Assumes best unit of measurement is unit with nearest mlPerUnit less than given milliliters.
         /// </summary>
-        public static Units FindBestUnit(float milliliters)
+        public static Unit FindBestUnit(float milliliters)
         {
             // Create units array by getting values of units enum, then casting them to units array.
-            Units[] units = (Units[])Enum.GetValues(typeof(Units));
+            Unit[] units = (Unit[])Enum.GetValues(typeof(Unit));
             // Use Array.FindLast method to loop through units array backwards,
             // return first unit where mlPerUnit threshold is below given milliliters
             // (technically last matching element, but the function loops backwards).

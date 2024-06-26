@@ -8,7 +8,7 @@
 
 using System;
 
-namespace RecipeProject.Classes
+namespace RecipeProject.Models
 {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     /// <summary>
@@ -21,7 +21,7 @@ namespace RecipeProject.Classes
         // Declare ingredient's member variables
         public string Name { get; set; } // Name of ingredient
         public int Amount { get; set; } // Amount measured in ml
-        public UnitHelper.Units Unit { get; set; } // The unit of measurement
+        public Volume.Unit Unit { get; set; } // The unit of measurement
         public float ScaleFactor { get; set; } = 1; // Scale factor to scale ingredient amount
         public float Calories { get; set; } // Calories of the ingredient, in terms of the initial ingredient quantity.
         public string FoodGroup { get; set; } // Name of food group
@@ -32,7 +32,7 @@ namespace RecipeProject.Classes
         /// </summary>
         public Ingredient(
             string name,
-            UnitHelper.Units unit,
+            Volume.Unit unit,
             int unitAmount,
             int calories,
             string foodGroup
@@ -77,7 +77,7 @@ namespace RecipeProject.Classes
         public void UpdateUnit()
         {
             // Set unit to the result returned by the unit helper's find best unit function.
-            Unit = UnitHelper.FindBestUnit(Amount * ScaleFactor);
+            Unit = Volume.FindBestUnit(Amount * ScaleFactor);
         }
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
@@ -85,7 +85,7 @@ namespace RecipeProject.Classes
         /// This method returns a neatly formatted and readable string representing the ingredient's
         /// amount, unit of measurement, and name.
         /// </summary>
-        public static string ReadableAmount(int amount, float scaleFactor, UnitHelper.Units unit)
+        public static string ReadableAmount(int amount, float scaleFactor, Volume.Unit unit)
         {
             // Calculate exact amount based on scale factor, in terms of ingredient's unit of measurement.
             float scaledAmount = amount * scaleFactor / ((int)unit);
@@ -94,7 +94,7 @@ namespace RecipeProject.Classes
                 scaledAmount % 1 == 0 ? $"{scaledAmount:0}" : $"{scaledAmount:0.00}";
 
             // Get the name of the unit of measurement in lowercase.
-            string unitName = Enum.GetName(typeof(UnitHelper.Units), unit).ToLower();
+            string unitName = Enum.GetName(typeof(Volume.Unit), unit).ToLower();
 
             // If there's more than one, add an 's' to make the unit name plural
             if (scaledAmount > 1)
