@@ -7,123 +7,101 @@
 /// </summary>
 
 using System;
+using static RecipeProject.Models.Volume;
 
 namespace RecipeProject.Models
 {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     /// <summary>
     /// This class represents an ingredient, including its name, amount, and unit of measurement.
-    /// Provides methods to apply scale factor, reset scale factor, update unit of measurement,
-    /// and return a string representing its amount in a neat and readable format.
     /// </summary>
     public class Ingredient
     {
         // Declare ingredient's member variables
-        public string Name { get; set; } // Name of ingredient
-        public int Amount { get; set; } // Amount measured in ml
-        public Volume.Unit Unit { get; set; } // The unit of measurement
-        public float ScaleFactor { get; set; } = 1; // Scale factor to scale ingredient amount
-        public float Calories { get; set; } // Calories of the ingredient, in terms of the initial ingredient quantity.
-        public string FoodGroup { get; set; } // Name of food group
+        /// <summary>
+        /// Name of ingredient.
+        /// </summary>
+        public string Name { get; set; }
+
+        // Internal member variables
+        float _scale;
+        Volume.Unit _initialUnit;
+        float _initialUnitQuantity;
+        float _initialCalories;
+
+        /// <summary>
+        /// Volumetric unit of measurement.
+        /// </summary>
+        public Volume.Unit Unit { get; set; }
+
+        /// <summary>
+        /// Quantity in terms of volumetric unit of measurement.
+        /// </summary>
+        public float UnitQuantity { get; set; }
+
+        /// <summary>
+        /// Calories in ingredient.
+        /// </summary>
+        public float Calories { get; set; }
+
+        /// <summary>
+        /// Food group that ingredient belongs to.
+        /// </summary>
+        public string FoodGroup { get; set; }
+
+        /// <summary>
+        /// Scale factor for all scalable properties of the ingredient.
+        /// Setting this immediately applies the scale factor to properties.
+        /// </summary>
+        public float Scale
+        {
+            get => _scale;
+            set
+            {
+                _scale = value;
+                if (_scale == 1)
+                {
+                    UnitQuantity = _initialUnitQuantity;
+                    Unit = _initialUnit;
+                    Calories = _initialCalories;
+                }
+                else
+                {
+                    var quantityML = (_scale * _initialUnitQuantity * (float)_initialUnit);
+                    Unit = Volume.FindBestUnit(quantityML);
+                    UnitQuantity = quantityML / (float)Unit;
+                    Calories = _scale * _initialCalories;
+                }
+            }
+        }
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
         /// <summary>
-        /// Constructor for ingredient class. Sets the ingredient's name, unit, unitAmount, and calories.
+        /// Ingredient constructor.
         /// </summary>
+        /// <param name="name">Name of ingredient.</param>
+        /// <param name="unit">Volumetric unit of measurement.</param>
+        /// <param name="unitQuantity">Quantity in terms of volumetric unit of measurement.</param>
+        /// <param name="calories">Calories in ingredient.</param>
+        /// <param name="foodGroup">Food group that ingredient belongs to.</param>
         public Ingredient(
             string name,
             Volume.Unit unit,
-            int unitAmount,
-            int calories,
-            string foodGroup
+            float unitQuantity,
+            float calories,
+            string foodGroup,
+            float scale = 1
         )
         {
             Name = name;
-            Amount = unitAmount * ((int)unit);
-            Unit = unit;
-            Calories = calories;
+            _initialUnit = unit;
+            _initialUnitQuantity = unitQuantity;
+            _initialCalories = calories;
+            Scale = scale; // Setting this also sets and scales all scalable properties.
             FoodGroup = foodGroup;
         }
 
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-        /// <summary>
-        /// This method applies the provided factor to the ingredient's scale factor using multiplication.
-        /// Note that this method does not overwrite the scale factor with the provided factor,
-        /// instead it multiplies the current scale factor by the provided factor. This allows compound scaling.
-        /// </summary>
-        public void ApplyScaleFactor(float factor)
-        {
-            ScaleFactor *= factor;
-            UpdateUnit();
-        }
-
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-        /// <summary>
-        /// This method resets the ingredient's scale factor back to its original value, which is 1.
-        /// Also updates the ingredient's unit of measurement to the one most suitable for representing its amount.
-        /// Note that the original unit of measurement selected by the user might not be restored
-        /// if a different unit of measurement better represents the amount.
-        /// </summary>
-        public void ResetScaleFactor()
-        {
-            ScaleFactor = 1;
-            UpdateUnit();
-        }
-
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-        /// <summary>
-        /// This method updates the ingredient's unit of measurement to best represents its amount (includes scaling).
-        /// </summary>
-        public void UpdateUnit()
-        {
-            // Set unit to the result returned by the unit helper's find best unit function.
-            Unit = Volume.FindBestUnit(Amount * ScaleFactor);
-        }
-
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-        /// <summary>
-        /// This method returns a neatly formatted and readable string representing the ingredient's
-        /// amount, unit of measurement, and name.
-        /// </summary>
-        public static string ReadableAmount(int amount, float scaleFactor, Volume.Unit unit)
-        {
-            // Calculate exact amount based on scale factor, in terms of ingredient's unit of measurement.
-            float scaledAmount = amount * scaleFactor / ((int)unit);
-            // Don't use decimal places if amount is a whole number, else use 2 (0.00) decimal places.
-            string roundedAmount =
-                scaledAmount % 1 == 0 ? $"{scaledAmount:0}" : $"{scaledAmount:0.00}";
-
-            // Get the name of the unit of measurement in lowercase.
-            string unitName = Enum.GetName(typeof(Volume.Unit), unit).ToLower();
-
-            // If there's more than one, add an 's' to make the unit name plural
-            if (scaledAmount > 1)
-                unitName += "s";
-
-            // Finally, return the nicely formatted amount as a string.
-            return $"{roundedAmount} {unitName} of";
-        }
-
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-        /// <summary>
-        /// This method returns a neatly formatted and readable string representing the ingredient's
-        /// amount, unit of measurement, calories, food group, and name.
-        /// </summary>
-        public string ReadableAmount() => ReadableAmount(Amount, ScaleFactor, Unit);
-
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-        /// <summary>
-        /// This static readonly string array contains food groups that an ingredient could belong to.
-        /// </summary>
-        public static readonly string[] FoodGroups = new string[]
-        {
-            "Starchy foods",
-            "Vegetables and fruits",
-            "Dry beans, peas, lentils and soya",
-            "Chicken, fish, meat and eggs",
-            "Milk and dairy products",
-            "Fats and oil",
-            "Water"
-        };
+        public void UpdateScale(float scale) => Scale = scale;
     }
 }
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~FILE END~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//

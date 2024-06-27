@@ -1,0 +1,81 @@
+﻿<Window x:Class="RecipeProject.Views.ShowRecipe"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RecipeProject.Views"
+        mc:Ignorable="d"
+        Title="ShowRecipe" Height="600" Width="675">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Recipe Name -->
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+                   Text="{Binding Recipe.Name}" 
+                   FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+
+        <!-- Steps -->
+        <GroupBox Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Header="Steps" Margin="0,0,10,0">
+            <ListBox ItemsSource="{Binding Steps}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Command="{Binding ToggleTickCommand}" Margin="0,0,10,0"/>
+                            <TextBlock Text="{Binding Number, StringFormat='{}{0}.'}" 
+                                       FontWeight="Bold" Margin="0,0,5,0"/>
+                            <TextBlock Text="{Binding Description}" 
+                                       TextWrapping="Wrap" MaxWidth="210"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+
+        <!-- Ingredients -->
+        <GroupBox Grid.Row="2" Grid.Column="1" Header="Ingredients" Margin="10,0,0,0">
+            <ListBox ItemsSource="{Binding Ingredients, UpdateSourceTrigger=PropertyChanged}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding UnitQuantity}" Margin="0,0,5,0"/>
+                            <TextBlock Text="{Binding Unit}" Margin="0,0,5,0"/>
+                            <TextBlock Text="of" Margin="0,0,5,0"/>
+                            <TextBlock Text="{Binding Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+
+        <!-- Recipe Info and Scaling Option -->
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Right">
+            <TextBlock Text="Scale Recipe" FontWeight="Bold" Margin="0,20,0,5"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding Scale, UpdateSourceTrigger=PropertyChanged}" 
+                 Width="25" TextAlignment="Center" Margin="0,0,10,0"/>
+                <Button Content="Apply" Command="{Binding ScaleRecipeCommand}" 
+                Width="75" Margin="0,0,20,0"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Recipe Info and Scaling Option -->
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" Margin="20,45,0,5">
+                <TextBlock Text="Calories: " FontWeight="Bold"/>
+                <TextBlock Text="{Binding Recipe.Calories}" Margin="0,0,20,0"/>
+                <TextBlock Text="Primary Food Group: " FontWeight="Bold"/>
+                <TextBlock Text="{Binding Recipe.PrimaryFoodGroup}"/>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Window>

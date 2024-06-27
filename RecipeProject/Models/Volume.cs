@@ -24,6 +24,7 @@ namespace RecipeProject.Models
         // Note: According to my source, "8 tablespoons multiplied by 2" does not "become 1 cup".
         public enum Unit
         {
+            Unknown = 0,
             Milliliter = 1,
             Teaspoon = 5,
             Tablespoon = 15,
@@ -38,6 +39,9 @@ namespace RecipeProject.Models
         /// </summary>
         public static Unit FindBestUnit(float milliliters)
         {
+            if (milliliters <= 0)
+                return Unit.Unknown;
+
             // Create units array by getting values of units enum, then casting them to units array.
             Unit[] units = (Unit[])Enum.GetValues(typeof(Unit));
             // Use Array.FindLast method to loop through units array backwards,
@@ -47,3 +51,5 @@ namespace RecipeProject.Models
         }
     }
 }
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~FILE END~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//

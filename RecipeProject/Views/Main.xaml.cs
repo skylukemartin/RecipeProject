@@ -19,20 +19,45 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using RecipeProject.Models;
 using RecipeProject.ViewModels;
 
 namespace RecipeProject.Views
 {
     /// <summary>
-    /// Interaction logic for Main.xaml
+    /// /// TODO: Fill in
     /// </summary>
     public partial class Main : Window
     {
+        private MainViewModel _viewModel;
+
+        /// <summary>
+        /// TODO: Fill in
+        /// </summary>
         public Main()
         {
             InitializeComponent();
-            MainViewModel mainViewModel = new MainViewModel();
-            this.DataContext = mainViewModel;
+            _viewModel = new MainViewModel();
+            this.DataContext = _viewModel;
+        }
+
+        /// <summary>
+        /// TODO: Fill in
+        /// </summary>
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            _viewModel.Dispose();
+        }
+
+        private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender.GetType() == typeof(ListBox))
+            {
+                var listBox = (ListBox)sender;
+                if (listBox.SelectedItem.GetType() == typeof(Recipe))
+                    new ShowRecipe((Recipe)listBox.SelectedItem).Show();
+            }
         }
     }
 }
