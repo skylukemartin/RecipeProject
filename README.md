@@ -1,3 +1,19 @@
+**Usage Example Guide**
+===============
+
+**View Recipe By Double Clicking**  
+
+[view_recipe.webm](https://github.com/skylukemartin/RecipeProject/assets/131005117/df8aeb71-fc55-432e-a3f9-bf5d2213d0b7)
+
+**Filtering Recipe List**
+
+[filter_recipes.webm](https://github.com/skylukemartin/RecipeProject/assets/131005117/b3e9ef82-fa7e-409e-9e7b-90a111b07876)
+
+**Adding A New Recipe**
+
+[add_recipe.webm](https://github.com/skylukemartin/RecipeProject/assets/131005117/9d323d7d-1d07-43de-9c3d-46fdb28d8e5c)
+
+
 # Required Link to This GitHub Repository:
 [GitHub repository link](https://github.com/skylukemartin/RecipeProject)
 
@@ -25,7 +41,7 @@
         - Inside either of these folders, you will find `RecipeProject.exe` (or just `RecipeProject` if show file extensions is disabled) 
         - Double click `RecipeProject.exe` (or just `RecipeProject`) to run the program directly from Windows Explorer.\
 
-**Usage Guide**
+**Legacy CLI Usage Guide**
 ===============
 
 **Main Menu**
@@ -100,7 +116,7 @@ If you encounter any issues or invalid inputs, the app will prompt you to try ag
 
 To exit the app, select option 5 from the Main Menu.
 
-**App Usage Examples**
+**Legacy CLI App Usage Examples**
 ---------------------
 
 ### Creating A Recipe
